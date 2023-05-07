@@ -9,6 +9,9 @@ Sub ConvertUnits()
     
     For Each cell In ws.Range("B2:B" & ws.Cells(ws.Rows.Count, 2).End(xlUp).Row)
         If Not IsEmpty(cell) Then
+            ' Grab the first letter of the string in column A and place it in column C in uppercase
+            cell.Offset(0, 1).Value = UCase(Left(cell.Offset(0, -1).Value, 1))
+            
             inputStr = cell.Value
             If Right(inputStr, 1) = "m" Then
                 multiplier = 0.001
@@ -26,4 +29,5 @@ Sub ConvertUnits()
         End If
     Next cell
 End Sub
+
 
