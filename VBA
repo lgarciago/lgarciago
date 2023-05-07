@@ -12,17 +12,18 @@ Sub ConvertUnits()
             inputStr = cell.Value
             If Right(inputStr, 1) = "m" Then
                 multiplier = 0.001
-                value = Left(inputStr, Len(inputStr) - 1) * multiplier
+                value = Val(Left(inputStr, Len(inputStr) - 1)) * multiplier
             ElseIf Right(inputStr, 1) = "p" Then
                 multiplier = 0.000000000001
-                value = Left(inputStr, Len(inputStr) - 1) * multiplier
+                value = Val(Left(inputStr, Len(inputStr) - 1)) * multiplier
             ElseIf Right(inputStr, 1) = "u" Then
                 multiplier = 0.000001
-                value = Left(inputStr, Len(inputStr) - 1) * multiplier
+                value = Val(Left(inputStr, Len(inputStr) - 1)) * multiplier
             Else
-                value = inputStr
+                value = Val(inputStr)
             End If
             cell.Value = value
         End If
     Next cell
 End Sub
+
