@@ -1,19 +1,29 @@
-Hi, I’m Luis 
+Sub ConvertUnits()
+    Dim ws As Worksheet
+    Dim cell As Range
+    Dim inputStr As String
+    Dim multiplier As Double
+    Dim value As Double
+    
+    Set ws = ThisWorkbook.ActiveSheet
+    
+    For Each cell In ws.Range("B2:B" & ws.Cells(ws.Rows.Count, 2).End(xlUp).Row)
+        If Not IsEmpty(cell) Then
+            inputStr = cell.Value
+            If Right(inputStr, 1) = "m" Then
+                multiplier = 0.001
+                value = Left(inputStr, Len(inputStr) - 1) * multiplier
+            ElseIf Right(inputStr, 1) = "p" Then
+                multiplier = 0.000000000001
+                value = Left(inputStr, Len(inputStr) - 1) * multiplier
+            ElseIf Right(inputStr, 1) = "u" Then
+                multiplier = 0.000001
+                value = Left(inputStr, Len(inputStr) - 1) * multiplier
+            Else
+                value = inputStr
+            End If
+            cell.Value = value
+        End If
+    Next cell
+End Sub
 
-I am an electrical engineering student in my last semester at UNM. 
-
-I initially wanted to go into hardware engineering, even though it is a strong interest, I started to learn about AWS (Amazon web services.)  
-
-Working on some project's over the summer, I found a soultions to workflow problems only possible through software and could be made better using AWS or other cloud based services.  
-
-Currently: Learning to use AWS cloud soultions. 
-
-Here is how to reach me! 
-lgarciago@icloud.com 
-
-
-
-<!---
-lgarciago/lgarciago is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
-You can click the Preview link to take a look at your changes.
---->
