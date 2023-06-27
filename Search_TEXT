@@ -1,0 +1,38 @@
+Sub SearchAndCopyValues()
+    Dim searchRange As Range
+    Dim searchList As Range
+    Dim cell As Range
+    Dim lastRow As Long
+    
+    ' Set the search range in column Q
+    With ThisWorkbook.Sheets("Sheet1") ' Replace "Sheet1" with the actual name of your sheet
+        lastRow = .Cells(.Rows.Count, "Q").End(xlUp).Row
+        Set searchRange = .Range("Q1:Q" & lastRow)
+    End With
+    
+    ' Set the range to paste the values in column G
+    With ThisWorkbook.Sheets("Sheet1") ' Replace "Sheet1" with the actual name of your sheet
+        Set searchList = .Range("G1:G" & lastRow)
+    End With
+    
+    ' Clear previous values in column G
+    searchList.ClearContents
+    
+    ' Loop through each cell in the search range
+    For Each cell In searchRange
+        Dim searchText As String
+        Dim foundCell As Range
+        
+        searchText = cell.Value ' Get the search item from column Q
+        
+        ' Find the corresponding value in column G
+        Set foundCell = searchList.Find(What:=searchText, LookIn:=xlValues, LookAt:=xlWhole)
+        
+        ' Copy and paste the value if found
+        If Not foundCell Is Nothing Then
+            foundCell.Value = foundCell.Offset(0, -4).Value ' Offset by 4 columns to reach column G
+        End If
+    Next cell
+    
+    Application.CutCopyMode = False
+End Sub
