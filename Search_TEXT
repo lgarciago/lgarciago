@@ -1,6 +1,7 @@
-Sub SearchAndCopyValues()
+Sub SearchAndOutputResults()
     Dim searchRange As Range
     Dim searchList As Range
+    Dim outputCell As Range
     Dim cell As Range
     Dim lastRow As Long
     
@@ -15,8 +16,13 @@ Sub SearchAndCopyValues()
         Set searchList = .Range("G1:G" & lastRow)
     End With
     
-    ' Clear previous values in column G
-    searchList.ClearContents
+    ' Set the output cell in T8
+    With ThisWorkbook.Sheets("Sheet1") ' Replace "Sheet1" with the actual name of your sheet
+        Set outputCell = .Range("T8")
+    End With
+    
+    ' Clear previous values in output cell
+    outputCell.ClearContents
     
     ' Loop through each cell in the search range
     For Each cell In searchRange
@@ -30,7 +36,8 @@ Sub SearchAndCopyValues()
         
         ' Copy and paste the value if found
         If Not foundCell Is Nothing Then
-            foundCell.Value = foundCell.Offset(0, -4).Value ' Offset by 4 columns to reach column G
+            outputCell.Value = foundCell.Value ' Copy the value to output cell
+            Exit For ' Exit the loop after finding the first match
         End If
     Next cell
     
