@@ -1,44 +1,42 @@
 Sub SearchAndOutputResults()
-    Dim searchRange As Range
     Dim searchList As Range
-    Dim outputCell As Range
+    Dim outputRange As Range
     Dim cell As Range
     Dim lastRow As Long
+    Dim outputRow As Long
     
-    ' Set the search range in column Q
-    With ThisWorkbook.Sheets("Sheet1") ' Replace "Sheet1" with the actual name of your sheet
+    ' Set the search list range in Sheet2, column Q
+    With ThisWorkbook.Sheets("Sheet2") ' Replace "Sheet2" with the actual name of your sheet
         lastRow = .Cells(.Rows.Count, "Q").End(xlUp).Row
-        Set searchRange = .Range("Q1:Q" & lastRow)
+        Set searchList = .Range("Q1:Q" & lastRow)
     End With
     
-    ' Set the range to paste the values in column G
+    ' Set the output range in Sheet1, column T
     With ThisWorkbook.Sheets("Sheet1") ' Replace "Sheet1" with the actual name of your sheet
-        Set searchList = .Range("G1:G" & lastRow)
+        lastRow = .Cells(.Rows.Count, "Q").End(xlUp).Row ' Assumes the same last row as in search list
+        Set outputRange = .Range("T1:T" & lastRow)
     End With
     
-    ' Set the output cell in T8
-    With ThisWorkbook.Sheets("Sheet1") ' Replace "Sheet1" with the actual name of your sheet
-        Set outputCell = .Range("T8")
-    End With
+    ' Clear previous values in output range
+    outputRange.ClearContents
     
-    ' Clear previous values in output cell
-    outputCell.ClearContents
-    
-    ' Loop through each cell in the search range
-    For Each cell In searchRange
+    ' Loop through each cell in the search list
+    outputRow = 1 ' Start outputting results from row 1 in column T
+    For Each cell In searchList
         Dim searchText As String
         Dim foundCell As Range
         
-        searchText = cell.Value ' Get the search item from column Q
+        searchText = cell.Value ' Get the search item from the search list
         
-        ' Find the corresponding value in column G
-        Set foundCell = searchList.Find(What:=searchText, LookIn:=xlValues, LookAt:=xlWhole)
+        ' Find the corresponding value in column G of Sheet1
+        Set foundCell = outputRange.Parent.Columns("J:J").Find(What:=searchText, LookIn:=xlValues, LookAt:=xlWhole)
         
-        ' Copy and paste the value if found
+        ' Output the value if found
         If Not foundCell Is Nothing Then
-            outputCell.Value = foundCell.Value ' Copy the value to output cell
-            Exit For ' Exit the loop after finding the first match
+            outputRange.Cells(outputRow).Value = foundCell.Offset(0, -3).Value ' Offset by 3 columns to reach column G
         End If
+        
+        outputRow = outputRow + 1 ' Move to the next output row
     Next cell
     
     Application.CutCopyMode = False
