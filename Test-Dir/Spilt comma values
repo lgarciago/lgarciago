@@ -3,6 +3,7 @@ Sub SplitValues()
     Dim targetSheet As Worksheet
     Dim sourceRange As Range
     Dim targetRange As Range
+    Dim cell As Range
     Dim valuesArray() As String
     Dim i As Integer
     
@@ -10,15 +11,15 @@ Sub SplitValues()
     Set sourceSheet = ThisWorkbook.Sheets("Sheet1") ' Replace "Sheet1" with the actual name of your source sheet
     Set targetSheet = ThisWorkbook.Sheets("Sheet2") ' Replace "Sheet2" with the actual name of your target sheet
     
-    ' Get the values from source sheet
-    Set sourceRange = sourceSheet.Range("J1")
-    valuesArray = Split(sourceRange.Value, ",")
-    
-    ' Set the target range
-    Set targetRange = targetSheet.Range("C1").Resize(UBound(valuesArray) + 1, 1)
+    ' Set the source range
+    Set sourceRange = sourceSheet.Range("J:J")
     
     ' Copy values to target sheet
-    For i = LBound(valuesArray) To UBound(valuesArray)
-        targetRange.Cells(i + 1, 1).Value = Trim(valuesArray(i))
-    Next i
+    For Each cell In sourceRange
+        valuesArray = Split(cell.Value, ",")
+        Set targetRange = targetSheet.Cells(targetSheet.Rows.Count, "C").End(xlUp).Offset(1, 0).Resize(UBound(valuesArray) + 1, 1)
+        For i = LBound(valuesArray) To UBound(valuesArray)
+            targetRange.Cells(i + 1, 1).Value = Trim(valuesArray(i))
+        Next i
+    Next cell
 End Sub
