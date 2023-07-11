@@ -1,30 +1,23 @@
-Sub RetrieveData()
-    Dim searchValue As String
-    Dim searchColumn As Range
-    Dim searchSheet As Worksheet
-    Dim dataSheet As Worksheet
-    Dim resultColumn As Range
-    Dim resultData As String
+Private Sub ToggleButton1_Click()
+    Dim SearchValue As String
+    Dim SearchSheet As Worksheet
+    Dim SearchColumn As Range
+    Dim RetrieveColumn As Range
+    Dim NewDataLocation As Worksheet
+    Dim Cell As Range
     
-    ' Prompt the user for input
-    searchValue = InputBox("Enter the value to search for:")
-    Set searchSheet = Sheets(InputBox("Enter the name of the sheet to search in:"))
-    Set searchColumn = searchSheet.Range(InputBox("Enter the column range to search in (e.g., A:A):"))
-    Set dataSheet = Sheets(InputBox("Enter the name of the sheet containing the data:"))
-    Set resultColumn = dataSheet.Range(InputBox("Enter the column range to retrieve data from (e.g., B:B):"))
+    'Assign text box values to variables
+    SearchValue = TextBoxValue.Text
+    Set SearchSheet = ThisWorkbook.Sheets(TextBoxSearchSheet.Text)
+    Set SearchColumn = SearchSheet.Columns(TextBoxSearchColumn.Text)
+    Set RetrieveColumn = SearchSheet.Columns(TextBoxRetrieveColumn.Text)
+    Set NewDataLocation = ThisWorkbook.Sheets(TextBoxNewDataLocation.Text)
     
-    ' Find the match in the search column
-    Dim cell As Range
-    For Each cell In searchColumn
-        If cell.Value = searchValue Then
-            ' Retrieve the corresponding data from the result column
-            resultData = resultColumn.Cells(cell.Row).Value
-            ' Display the result
-            MsgBox "Match found! The data is: " & resultData
-            Exit Sub ' Exit the loop after finding the first match
+    'Loop through each cell in the search column
+    For Each Cell In SearchColumn
+        'If the cell contains the search value, copy the corresponding cell from the retrieve column to the new data location
+        If InStr(Cell.Value, SearchValue) > 0 Then
+            RetrieveColumn.Cells(Cell.Row).Copy Destination:=NewDataLocation.Cells(Cell.Row)
         End If
-    Next cell
-    
-    ' If no match is found, display a message
-    MsgBox "No match found for the search value."
+    Next Cell
 End Sub
