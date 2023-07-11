@@ -1,0 +1,23 @@
+Sub SplitValues()
+    Dim sourceSheet As Worksheet
+    Dim targetSheet As Worksheet
+    Dim sourceRange As Range
+    Dim targetCell As Range
+    Dim valuesArray() As String
+    Dim i As Integer
+    
+    ' Set the source and target sheets
+    Set sourceSheet = ThisWorkbook.Sheets("Sheet1") ' Replace "Sheet1" with the actual name of your source sheet
+    Set targetSheet = ThisWorkbook.Sheets("Sheet2") ' Replace "Sheet2" with the actual name of your target sheet
+    
+    ' Get the values from source sheet
+    Set sourceRange = sourceSheet.Range("J1")
+    valuesArray = Split(sourceRange.Value, ",")
+    
+    ' Copy values to target sheet
+    Set targetCell = targetSheet.Range("C1")
+    For i = LBound(valuesArray) To UBound(valuesArray)
+        targetCell.Value = Trim(valuesArray(i))
+        Set targetCell = targetCell.Offset(0, 1) ' Move to the next cell in the target column
+    Next i
+End Sub
