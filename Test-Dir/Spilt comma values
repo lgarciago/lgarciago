@@ -2,7 +2,7 @@ Sub SplitValues()
     Dim sourceSheet As Worksheet
     Dim targetSheet As Worksheet
     Dim sourceRange As Range
-    Dim targetCell As Range
+    Dim targetRange As Range
     Dim valuesArray() As String
     Dim i As Integer
     
@@ -14,10 +14,11 @@ Sub SplitValues()
     Set sourceRange = sourceSheet.Range("J1")
     valuesArray = Split(sourceRange.Value, ",")
     
+    ' Set the target range
+    Set targetRange = targetSheet.Range("C1").Resize(UBound(valuesArray) + 1, 1)
+    
     ' Copy values to target sheet
-    Set targetCell = targetSheet.Range("C1")
     For i = LBound(valuesArray) To UBound(valuesArray)
-        targetCell.Value = Trim(valuesArray(i))
-        Set targetCell = targetCell.Offset(0, 1) ' Move to the next cell in the target column
+        targetRange.Cells(i + 1, 1).Value = Trim(valuesArray(i))
     Next i
 End Sub
