@@ -1,0 +1,30 @@
+Sub RetrieveData()
+    Dim searchValue As String
+    Dim searchColumn As Range
+    Dim searchSheet As Worksheet
+    Dim dataSheet As Worksheet
+    Dim resultColumn As Range
+    Dim resultData As String
+    
+    ' Prompt the user for input
+    searchValue = InputBox("Enter the value to search for:")
+    Set searchSheet = Sheets(InputBox("Enter the name of the sheet to search in:"))
+    Set searchColumn = searchSheet.Range(InputBox("Enter the column range to search in (e.g., A:A):"))
+    Set dataSheet = Sheets(InputBox("Enter the name of the sheet containing the data:"))
+    Set resultColumn = dataSheet.Range(InputBox("Enter the column range to retrieve data from (e.g., B:B):"))
+    
+    ' Find the match in the search column
+    Dim cell As Range
+    For Each cell In searchColumn
+        If cell.Value = searchValue Then
+            ' Retrieve the corresponding data from the result column
+            resultData = resultColumn.Cells(cell.Row).Value
+            ' Display the result
+            MsgBox "Match found! The data is: " & resultData
+            Exit Sub ' Exit the loop after finding the first match
+        End If
+    Next cell
+    
+    ' If no match is found, display a message
+    MsgBox "No match found for the search value."
+End Sub
