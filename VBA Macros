@@ -28,3 +28,6 @@ End Sub
 
 
 =IFERROR(INDEX(Sheet1!$K$2:$AJ$1000, MATCH(Sheet2!P2, Sheet1!$K$2:$K$1000, 0), 0), "")
+
+
+=IFERROR(INDEX(Sheet1!$K$2:$AJ$1000, MATCH(Sheet2!P2, Sheet1!$K$2:$K$1000, 0), MATCH(1, INDEX((Sheet1!$K$2:$AJ$1000=Sheet2!P2)*(COLUMN(Sheet1!$K$2:$AJ$1000)-COLUMN(Sheet1!$K$2)+1), 0), 0)), "")
