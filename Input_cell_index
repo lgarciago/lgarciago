@@ -1,0 +1,72 @@
+Sub SearchAndPlaceData()
+    Dim CellValues As Variant
+    Dim LastColumn As Integer
+    Dim ColumnIndex As Integer
+    Dim RowIndex As Integer
+    Dim TargetRow As Integer
+    Dim FoundString As String
+    Dim SearchRange As Range
+    Dim FoundRange As Range
+    Dim InputCols As String
+    Dim ColArray() As String
+    Dim SearchCol As String
+    Dim IndexCol As String
+    Dim SearchColNum As Integer
+    Dim IndexColNum As Integer
+
+    ' Get user input for the search column and index column
+    InputCols = InputBox("Enter the column letter for the search values (Sheet2) and the column to be searched (Sheet1), separated by a comma:")
+    ColArray = Split(InputCols, ",")
+
+    ' Check if user input is valid
+    If UBound(ColArray) <> 1 Then
+        MsgBox "Invalid input. Please enter two column letters separated by a comma."
+        Exit Sub
+    End If
+
+    ' Convert to uppercase to avoid case-sensitivity issues
+    SearchCol = UCase(Trim(ColArray(0)))
+    IndexCol = UCase(Trim(ColArray(1)))
+
+    ' Convert column letters to column numbers
+    SearchColNum = Columns(SearchCol).Column
+    IndexColNum = Columns(IndexCol).Column
+
+    'Iterate through each cell in the user-specified column of Sheet2
+    For j = 2 To Sheets("Sheet2").Cells(Sheets("Sheet2").Rows.Count, SearchCol).End(xlUp).Row
+
+        'Skip if there's already data on the row in Sheet2 (excluding the search column)
+        For ColumnIndex = 1 To Sheets("Sheet2").Cells(1, Columns.Count).End(xlToLeft).Column
+            If ColumnIndex <> SearchColNum And Sheets("Sheet2").Cells(j, ColumnIndex).Value <> "" Then GoTo NextIteration
+        Next ColumnIndex
+
+        'Iterate through each cell in the user-specified column of Sheet1
+        For RowIndex = 2 To Sheets("Sheet1").Cells(Sheets("Sheet1").Rows.Count, IndexCol).End(xlUp).Row
+
+            'If any substring of the cell value matches the search value
+            For Each SearchValue In Split(Sheets("Sheet1").Cells(RowIndex, IndexCol).Value, ",")
+                If Trim(SearchValue) = Sheets("Sheet2").Cells(j, SearchCol).Value Then
+                    'Find the last used column in the row and the next empty row in Sheet2
+                    LastColumn = Sheets("Sheet1").Cells(RowIndex, Sheets("Sheet1").Columns.Count).End(xlToLeft).Column
+                    TargetRow = Sheets("Sheet2").Cells(Sheets("Sheet2").Rows.Count, "D").End(xlUp).Row + 1
+
+                    'Prepare string to be searched
+                    FoundString = Join(Application.Index(Sheets("Sheet1").Cells(RowIndex, 1).Resize(, LastColumn).Value, 1, 0), " ")
+
+                    'Check if this row was already copied to Sheet2
+                    Set SearchRange = Sheets("Sheet2").Range("A2:D" & TargetRow)
+                    Set FoundRange = SearchRange.Find(what:=FoundString, LookIn:=xlValues, lookat:=xlWhole)
+                    
+                    If FoundRange Is Nothing Then
+                        'Copy the cell values to the corresponding cells in Sheet2
+                        Sheets("Sheet2").Cells(TargetRow, 1).Resize(, LastColumn).Value = Sheets("Sheet1").Cells(RowIndex, 1).Resize(, LastColumn).Value
+                        Exit For
+                    End If
+                End If
+            Next SearchValue
+        Next RowIndex
+
+NextIteration:
+    Next j
+End Sub
+
