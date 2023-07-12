@@ -17,3 +17,6 @@ End Sub
 
 
 =INDEX(Sheet1!$A:$Z, MATCH(TRUE, ISNUMBER(SEARCH("," & Sheet2!Q2 & ",", ", " & Sheet1!K:K & ", ")), 0), 1)
+
+=INDEX(Sheet1!$A:$Z, MATCH("*" & Sheet2!Q2 & "*", Sheet1!K:K, 0), 0)
+
