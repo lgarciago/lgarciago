@@ -8,8 +8,6 @@ Sub SearchAndPlaceData()
     Dim ColumnData As String
     Dim InputCols As String
     Dim ColArray() As String
-    Dim SearchCol As String
-    Dim IndexCol As String
     Dim SearchColNum As Integer
     Dim IndexColNum As Integer
 
@@ -21,6 +19,8 @@ Sub SearchAndPlaceData()
         Exit Sub
     End If
 
+    Dim SearchCol As String
+    Dim IndexCol As String
     SearchCol = UCase(Trim(ColArray(0)))
     IndexCol = UCase(Trim(ColArray(1)))
 
