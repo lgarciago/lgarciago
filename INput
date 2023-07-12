@@ -21,3 +21,6 @@ Private Sub ToggleButton1_Click()
         End If
     Next Cell
 End Sub
+
+
+=FILTER(Sheet1!A:Z, MMULT(--ISNUMBER(SEARCH(TRANSPOSE(Sheet2!C:C), Sheet1!K:K)), SEQUENCE(ROWS(Sheet2!C:C),,,0))>0, "No results")
