@@ -24,3 +24,4 @@ End Sub
 
 =IFERROR(INDEX(Sheet1!$A:$Z, SMALL(IF(ISNUMBER(SEARCH("," & Sheet2!Q2 & ",", ", " & Sheet1!K:K & ", ")), ROW(Sheet1!K:K)), ROW()-1), COLUMN(A:A)), "")
 
+=INDEX(Sheet1!$A:$Z, SMALL(IF(ISNUMBER(SEARCH(", " & Sheet2!Q2 & ",", ", " & Sheet1!K:K & ",")), ROW(Sheet1!K:K)), ROW()-ROW($R$2)+1), COLUMN(A:A))
