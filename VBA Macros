@@ -31,3 +31,5 @@ End Sub
 
 
 =IFERROR(INDEX(Sheet1!$K$2:$AJ$1000, MATCH(Sheet2!P2, Sheet1!$K$2:$K$1000, 0), MATCH(1, INDEX((Sheet1!$K$2:$AJ$1000=Sheet2!P2)*(COLUMN(Sheet1!$K$2:$AJ$1000)-COLUMN(Sheet1!$K$2)+1), 0), 0)), "")
+
+=IFERROR(INDEX($P$3:$S$68, MATCH(P3, $C$3:$C$68, 0), COLUMN($P$3:$S$68)-COLUMN($P$3)+1), "NA")
