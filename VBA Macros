@@ -22,3 +22,5 @@ End Sub
 
 =FILTER(Sheet1!$A:$Z, MMULT(--ISNUMBER(SEARCH("," & Sheet2!Q2 & ",", ", " & Sheet1!K:K & ", ")), ROW(Sheet1!K:K)^0) > 0)
 
+=IFERROR(INDEX(Sheet1!$A:$Z, SMALL(IF(ISNUMBER(SEARCH("," & Sheet2!Q2 & ",", ", " & Sheet1!K:K & ", ")), ROW(Sheet1!K:K)), ROW()-1), COLUMN(A:A)), "")
+
