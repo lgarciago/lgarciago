@@ -13,3 +13,7 @@ Sub IndexMatchExample()
         ws2.Cells(targetRow, "R").Formula = matchFormula
     Next targetRow
 End Sub
+
+
+
+=INDEX(Sheet1!$A:$Z, MATCH(TRUE, ISNUMBER(SEARCH("," & Sheet2!Q2 & ",", ", " & Sheet1!K:K & ", ")), 0), 1)
