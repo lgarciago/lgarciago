@@ -1,0 +1,15 @@
+Sub IndexMatchExample()
+    Dim ws1 As Worksheet, ws2 As Worksheet
+    Dim lastRow As Long, targetRow As Long
+    Dim matchFormula As String
+    
+    Set ws1 = ThisWorkbook.Sheets("Sheet1")
+    Set ws2 = ThisWorkbook.Sheets("Sheet2")
+    
+    lastRow = ws2.Cells(ws2.Rows.Count, "Q").End(xlUp).Row
+    
+    For targetRow = 2 To lastRow
+        matchFormula = "=INDEX(" & ws1.Name & "!$A:$Z, MATCH(" & ws2.Name & "!$Q$" & targetRow & ", " & ws1.Name & "!$K:$K, 0), " & ws1.Name & "!$A:$Z)"
+        ws2.Cells(targetRow, "R").Formula = matchFormula
+    Next targetRow
+End Sub
