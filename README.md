@@ -6,22 +6,18 @@
 - 📄 I use embeddings and LLMs to streamline paperwork and increase efficiency in engineering tasks
 
 ## Current Projects
-- (Brief description of a project)
-- (Another project or tool you're developing)
+- Currently exploring opportunities to integrate AI with traditional hardware design to optimize performance and durability.
 
 ## Skills
-- Languages: (e.g., Python, C++)
-- Tools: (e.g., AutoCAD, Eagle, OpenAI GPT)
-- Technologies: (mention any specific hardware or software you are proficient in)
+- Languages: Python, C++
+- Tools: MATLAB, PSPICE (Advanced), Hyperlynx (SI + PI Analysis), NLP, Pytorch
 
 ## Career Goals
-- I'm interested in roles that allow me to blend my hardware engineering skills with advanced AI technologies, particularly in (specify industry or type of role).
+- I aim to leverage my skills in hardware engineering and AI to innovate and improve product design and functionality in the consumer electronics sector.
 
-## Let's Connect
-- LinkedIn: [your-linkedin](#)
-- Email: your.email@example.com
+## A Personal Note
+- "Innovation is not about saying yes to everything. It's about saying NO to all but the most crucial features." - Steve Jobs
 
 ---
 
 Feel free to check out my repositories and don't hesitate to reach out if you have any questions or opportunities!
-
