@@ -1,8 +1,0 @@
-'Assuming your data is in cells A1:A10, you can follow these steps:
-'In cell B1, enter the following formula and press Enter:
-
-=IFERROR(MID($A1,SEARCH("{",$A1)+1,SEARCH("}",$A1,SEARCH("{",$A1))-SEARCH("{",$A1)-1),"")
-
-Drag the formula in cell B1 down to fill the range B1:B10. This will extract the strings enclosed in curly braces for each cell.
-
-In cell F4, enter the following formula and press Enter:
