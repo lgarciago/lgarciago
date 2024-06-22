@@ -15,8 +15,6 @@
 ## Career Goals
 - I aim to leverage my skills in hardware engineering and AI to innovate and improve product design and functionality in the consumer electronics sector.
 
-## A Personal Note
-- "Innovation is not about saying yes to everything. It's about saying NO to all but the most crucial features." - Steve Jobs
 
 ---
 
